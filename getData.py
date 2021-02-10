@@ -1,10 +1,12 @@
 import mysql.connector
+import yaml
 
+db = yaml.load(open('db.yaml'), Loader=yaml.FullLoader)
 mydb = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="eperpus_db"
+            host= db['host'],
+            user= db['user'],
+            password= db['password'],
+            database= db['database']
         )
 
 class GetData:
