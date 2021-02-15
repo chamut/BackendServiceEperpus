@@ -39,3 +39,25 @@ class postData:
         mydb.commit()
         cursor.close()
 
+    def postWishlist(self, details):
+        mydb = connectdb()
+        cursor = mydb.cursor()
+        cursor.execute("INSERT INTO daftar_bacaan (iddaftar_bacaan, user_iduser, buku_idbuku) VALUE (%S, %S,%S)",
+                       (0, details['iduser'], details['idbuku']))
+        mydb.commit()
+        cursor.close()
+
+    def deletewishlist(self, data):
+        mydb = connectdb()
+        cursor = mydb.cursor()
+        cursor.execute("DELETE FROM daftar_bacaan WHERE iddaftar_bacaan = {}".format(data))
+        mydb.commit()
+        cursor.close()
+
+    def updateDipinjam(self, idbuku):
+        mydb = connectdb()
+        cursor = mydb.cursor()
+        cursor.execute("UPDATE buku SET total_dipinjam = total_dipinjam+1 WHERE idbuku = {}".format(idbuku))
+        mydb.commit()
+        cursor.close()
+

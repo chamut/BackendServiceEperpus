@@ -44,3 +44,17 @@ class GetData:
         cursor.close()
         print(result)
         return result
+
+    def getdatawishlist(self, iduser):
+        mydb = connectdb()
+        cursor = mydb.cursor(dictionary=True)
+        cursor.execute(
+            "SELECT * "
+            "FROM (sedang_pinjam INNER JOIN buku ON daftar_bacaan.buku_idbuku = buku.idbuku) "
+            "WHERE user_iduser={}".format(iduser))
+        result = cursor.fetchall()
+        cursor.close()
+        print(result)
+        return result
+
+

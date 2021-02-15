@@ -30,19 +30,37 @@ def postPinjam(iduser, idbuku, tanggalpinjam, tanggalkembali):
     data = request.view_args
     print(data)
     postData().postDataPinjam(details=data)
+    postData().updateDipinjam(data['idbuku'])
 
 @app.route('/riwayat/<iduser>/<idbuku>/<tanggalpinjam>/<tanggalkembali>')
 def postRiwayat(idpinjam, iduser, idbuku, tanggalpinjam, tanggaldikembalikan, progress):
     data = request.view_args
-    postData.postHistory(data)
-    postData.dropSedangpinjam(data['idpinjam'])
+    postData().postHistory(data)
+    postData().dropSedangpinjam(data['idpinjam'])
+
+@app.route('/addwishlist/<iduser>/<idbuku>')
+def postWishlist(iduser, idbuku):
+    data = request.view_args
+    postData().postWishlist(data)
+
+@app.route('/removewishlist/<idwishlist>')
+def removeWishlist(idwishlist):
+    data = request.view_args['idwishlist']
+    postData().deletewishlist(data)
+
+@app.route('/getwishlist/<iduser>')
+def getWishlist(iduser):
+    data = request.view_args['iduser']
+    respon = GetData().getdatawishlist(data)
+    respon = {"data": respon}
+    return respon
 
 
-@app.route("/data/<section>/<apa>")
+"""@app.route("/data/<section>/<apa>")
 def data2(section, apa):
     print(int(request.view_args['apa']))
     print(request.view_args['section'])
-    return request.view_args['section']
+    return request.view_args['section']"""
 
 
 if __name__ == '__main__':
