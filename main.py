@@ -18,12 +18,31 @@ def dataUser():
     respon = {"data" : respon}
     return respon
 
-@app.route("/", methods=['GET'])
-def dataPinjam():
-    respon = GetData().getdatapinjambuku(3)
+@app.route("/sedangpinjam/<iduser>", methods=['GET'])
+def dataPinjam(iduser):
+    user = request.view_args['iduser']
+    respon = GetData().getdatapinjambuku(user)
     respon = {"data": respon}
     return respon
 
+@app.route('/pinjam/<iduser>/<idbuku>/<tanggalpinjam>/<tanggalkembali>')
+def postPinjam(iduser, idbuku, tanggalpinjam, tanggalkembali):
+    data = request.view_args
+    print(data)
+    postData().postDataPinjam(details=data)
+
+@app.route('/riwayat/<iduser>/<idbuku>/<tanggalpinjam>/<tanggalkembali>')
+def postRiwayat(idpinjam, iduser, idbuku, tanggalpinjam, tanggaldikembalikan, progress):
+    data = request.view_args
+    postData.postHistory(data)
+    postData.dropSedangpinjam(data['idpinjam'])
+
+
+@app.route("/data/<section>/<apa>")
+def data2(section, apa):
+    print(int(request.view_args['apa']))
+    print(request.view_args['section'])
+    return request.view_args['section']
 
 
 if __name__ == '__main__':
