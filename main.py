@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_cors import CORS
 from getData import GetData
+from login import login
 from postData import postData
 
 app = Flask(__name__)
@@ -55,6 +56,10 @@ def getWishlist(iduser):
     respon = {"data": respon}
     return respon
 
+@app.route('/login/<uname>/<password>')
+def isUserin(uname, password):
+    respon = login().ceklogin(uname, password)
+    return respon
 
 """@app.route("/data/<section>/<apa>")
 def data2(section, apa):
