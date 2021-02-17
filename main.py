@@ -67,6 +67,10 @@ def isUserin(uname, password):
         respon = {"message": sukses, "data": respon}
     return respon
 
+@app.route('/updatebaca/<idpinjam>/<progress>')
+def updateProgress(idpinjam, progress):
+    postData().updateProgressBaca(idpinjam, progress)
+
 """@app.route("/data/<section>/<apa>")
 def data2(section, apa):
     print(int(request.view_args['apa']))

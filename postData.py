@@ -61,3 +61,10 @@ class postData:
         mydb.commit()
         cursor.close()
 
+    def updateProgressBaca(self, idpinjam, progress):
+        mydb = connectdb()
+        cursor = mydb.cursor()
+        cursor.execute("UPDATE sedang_pinjam SET progress_baca = {} WHERE idsedang_pinjam = {}".format(progress, idpinjam))
+        mydb.commit()
+        cursor.close()
+
