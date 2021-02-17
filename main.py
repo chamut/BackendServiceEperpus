@@ -59,6 +59,12 @@ def getWishlist(iduser):
 @app.route('/login/<uname>/<password>')
 def isUserin(uname, password):
     respon = login().ceklogin(uname, password)
+    if respon != None:
+        sukses = "Login Successful"
+        respon = {"message": sukses, "data": respon[0]}
+    else:
+        sukses = "Login Failed"
+        respon = {"message": sukses, "data": respon}
     return respon
 
 """@app.route("/data/<section>/<apa>")

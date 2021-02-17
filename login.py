@@ -21,6 +21,6 @@ class login:
         result = cursor.fetchall()
         cursor.close()
         if len(result) == 1:
-            return "bisa login"
+            return result
         else:
-            return "username atau password salah"
+            return None
