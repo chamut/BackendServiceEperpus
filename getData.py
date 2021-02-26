@@ -23,6 +23,14 @@ class GetData:
         cursor.close()
         return result
 
+    def getdetailbuku(self, idbuku):
+        mydb = connectdb()
+        cursor = mydb.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM buku WHERE idbuku={}".format(idbuku))
+        result = cursor.fetchall()
+        cursor.close()
+        return result
+
     def getdatauser(self):
         mydb = connectdb()
         cursor = mydb.cursor(dictionary=True)
@@ -35,14 +43,22 @@ class GetData:
         mydb = connectdb()
         cursor = mydb.cursor(dictionary=True)
         cursor.execute(
-            "SELECT sedang_pinjam.tanggal_pinjam, "
+            "SELECT sedang_pinjam.idsedang_pinjam, sedang_pinjam.tanggal_pinjam, "
             "sedang_pinjam.tanggal_kembali, sedang_pinjam.progress_baca, "
-            "buku.judul_buku, buku.foto_buku, buku.pengarang, buku.file_buku "
+            "buku.idbuku, buku.judul_buku, buku.foto_buku, buku.pengarang, buku.file_buku "
             "FROM (sedang_pinjam INNER JOIN buku ON sedang_pinjam.buku_idbuku = buku.idbuku) "
             "WHERE user_iduser={}".format(iduser))
         result = cursor.fetchall()
         cursor.close()
         print(result)
+        return result
+
+    def getdatasedangpinjam(self, idpinjam):
+        mydb = connectdb()
+        cursor = mydb.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM sedang_pinjam WHERE idsedang_pinjam = {}".format(idpinjam))
+        result = cursor.fetchall()
+        cursor.close()
         return result
 
     def getdatawishlist(self, iduser):
@@ -56,5 +72,38 @@ class GetData:
         cursor.close()
         print(result)
         return result
+
+    def getSearchJudul(self, keyword):
+        mydb = connectdb()
+        cursor = mydb.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM buku WHERE judul_buku LIKE '%{}%'".format(keyword))
+        result = cursor.fetchall()
+        cursor.close()
+        return result
+
+    def getKategori(self, category):
+        mydb = connectdb()
+        cursor = mydb.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM buku WHERE kategori LIKE '%{}%'".format(category))
+        result = cursor.fetchall()
+        cursor.close()
+        return result
+
+    def listKategori(self):
+        mydb = connectdb()
+        cursor = mydb.cursor()
+        cursor.execute("SELECT kategori FROM buku")
+        result = cursor.fetchall()
+        cursor.close()
+
+        catlist = set()
+
+        for r in result:
+            li = r[0].split(', ')
+            for cat in li:
+                catlist.add(cat)
+
+        return list(catlist)
+
 
 
