@@ -90,13 +90,20 @@ def dataPinjam(iduser):
 
 @app.route('/pinjam/<iduser>/<idbuku>/<tanggalpinjam>/<tanggalkembali>')
 def postPinjam(iduser, idbuku, tanggalpinjam, tanggalkembali):
-    data = request.view_args
-    print(data)
-    postData().postDataPinjam(details=data)
-    postData().updateDipinjam(data['idbuku'])
+    try:
+        data = request.view_args
+        print(data)
+        postData().postDataPinjam(details=data)
+        postData().updateDipinjam(data['idbuku'])
+        result = {"message": "1"}
+    except:
+        result = {"message": "0"}
+
+    return result
+
 
 @app.route('/riwayat/<iduser>/<idbuku>/<idpinjam>/<tanggaldikembalikan>')
-def postRiwayat(iduser, idbuku,idpinjam, tanggaldikembalikan):
+def postRiwayat(iduser, idbuku, idpinjam, tanggaldikembalikan):
     try:
         data = request.view_args
         sedangpinjam = GetData().getdatasedangpinjam(idpinjam)
@@ -118,13 +125,25 @@ def dataHistory(iduser):
 
 @app.route('/addwishlist/<iduser>/<idbuku>')
 def postWishlist(iduser, idbuku):
-    data = request.view_args
-    postData().postWishlist(data)
+    try:
+        data = request.view_args
+        postData().postWishlist(data)
+        result = {"message": "1"}
+    except:
+        result = {"message": "0"}
+
+    return result
 
 @app.route('/removewishlist/<idwishlist>')
 def removeWishlist(idwishlist):
-    data = request.view_args['idwishlist']
-    postData().deletewishlist(data)
+    try:
+        data = request.view_args['idwishlist']
+        postData().deletewishlist(data)
+        result = {"message": "1"}
+    except:
+        result = {"message": "0"}
+
+    return result
 
 @app.route('/getwishlist/<iduser>')
 def getWishlist(iduser):
