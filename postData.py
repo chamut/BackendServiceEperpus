@@ -80,7 +80,7 @@ class postData:
     def postWishlist(self, details):
         mydb = connectdb()
         cursor = mydb.cursor()
-        cursor.execute("INSERT INTO daftar_bacaan (iddaftar_bacaan, user_iduser, buku_idbuku) VALUE (%S, %S,%S)",
+        cursor.execute("INSERT INTO daftar_bacaan (iddaftar_bacaan, user_iduser, buku_idbuku) VALUES (%s, %s, %s)",
                        (0, details['iduser'], details['idbuku']))
         mydb.commit()
         cursor.close()
