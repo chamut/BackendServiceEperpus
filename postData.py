@@ -85,10 +85,10 @@ class postData:
         mydb.commit()
         cursor.close()
 
-    def deletewishlist(self, data):
+    def deletewishlist(self, iduser, idbuku):
         mydb = connectdb()
         cursor = mydb.cursor()
-        cursor.execute("DELETE FROM daftar_bacaan WHERE iddaftar_bacaan = {}".format(data))
+        cursor.execute("DELETE FROM daftar_bacaan WHERE user_iduser = {} AND buku_idbuku = {}".format(iduser, idbuku))
         mydb.commit()
         cursor.close()
 

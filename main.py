@@ -134,11 +134,10 @@ def postWishlist(iduser, idbuku):
 
     return result
 
-@app.route('/removewishlist/<idwishlist>')
-def removeWishlist(idwishlist):
+@app.route('/removewishlist/<iduser>/<idbuku>')
+def removeWishlist(iduser, idbuku):
     try:
-        data = request.view_args['idwishlist']
-        postData().deletewishlist(data)
+        postData().deletewishlist(iduser, idbuku)
         result = {"message": "1"}
     except:
         result = {"message": "0"}
