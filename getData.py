@@ -62,6 +62,14 @@ class GetData:
         cursor.close()
         return result
 
+    def getdatabarupinjam(self, iduser, idbuku):
+        mydb = connectdb()
+        cursor = mydb.cursor(dictionary=True)
+        cursor.execute("SELECT idsedang_pinjam FROM sedang_pinjam WHERE user_iduser = {} AND buku_idbuku = {}".format(iduser, idbuku))
+        result = cursor.fetchall()
+        cursor.close()
+        return result[0]['idsedang_pinjam']
+
     def getdatahistory(self, iduser):
         mydb = connectdb()
         cursor = mydb.cursor(dictionary=True)
