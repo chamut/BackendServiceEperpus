@@ -164,11 +164,8 @@ def isUserin(uname, password):
 
 @app.route('/updatebaca/<idpinjam>/<progress>')
 def updateProgress(idpinjam, progress):
-    try:
-        postData().updateProgressBaca(idpinjam, progress)
-        result = {"message": "1"}
-    except:
-        result = {"message": "0"}
+    respon = postData().updateProgressBaca(idpinjam=idpinjam, progress=progress)
+    result = {"message": respon}
 
     return result
 
@@ -187,4 +184,4 @@ def data2(section, apa):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', port=1298, debug=True)

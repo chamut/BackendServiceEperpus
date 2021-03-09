@@ -104,7 +104,9 @@ class postData:
         cursor = mydb.cursor()
         cursor.execute("UPDATE sedang_pinjam SET progress_baca = {} WHERE idsedang_pinjam = {}".format(progress, idpinjam))
         mydb.commit()
+        respon = cursor.rowcount
         cursor.close()
+        return respon
 
     def updateDikembalikan(self, idbuku):
         mydb = connectdb()
