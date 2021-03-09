@@ -95,7 +95,8 @@ def postPinjam(iduser, idbuku, tanggalpinjam, tanggalkembali):
         print(data)
         postData().postDataPinjam(details=data)
         postData().updateDipinjam(data['idbuku'])
-        result = {"message": "1"}
+        idpinjam = GetData().getdatabarupinjam(iduser, idbuku)
+        result = {"message": "1", "idpinjam": idpinjam}
     except:
         result = {"message": "0"}
 
