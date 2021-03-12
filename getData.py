@@ -20,6 +20,18 @@ class GetData:
         cursor = mydb.cursor(dictionary=True)
         cursor.execute("SELECT * FROM buku")
         result = cursor.fetchall()
+        row = cursor.rowcount
+        cursor.close()
+        print(row)
+        return result, row
+
+    def getdatabukupage(self, page):
+        mydb = connectdb()
+        cursor = mydb.cursor(dictionary=True)
+        limit = 2
+        offset = (int(page)-1)*limit
+        cursor.execute("SELECT * FROM buku LIMIT {} OFFSET {}".format(limit, offset))
+        result = cursor.fetchall()
         cursor.close()
         return result
 

@@ -48,7 +48,13 @@ def formUser():
 
 @app.route("/buku", methods=['GET'])
 def dataBuku():
-    respon = GetData().getdatabuku()
+    respon, total = GetData().getdatabuku()
+    respons = {"total" : total, "data" : respon}
+    return respons
+
+@app.route("/buku/<page>", methods=['GET'])
+def dataBukubyPage(page):
+    respon = GetData().getdatabukupage(page)
     respon = {"data" : respon}
     return respon
 
