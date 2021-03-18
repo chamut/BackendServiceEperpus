@@ -34,9 +34,8 @@ class postData:
         mydb.commit()
         cur.close()
 
-    def uploadUser(self, userdata, foto):
+    def uploadUser(self, userdata, password, foto):
         username = userdata['username']
-        password = userdata['password']
         nama = userdata['nama']
         fakultas = userdata['fakultas']
         jurusan = userdata['jurusan']

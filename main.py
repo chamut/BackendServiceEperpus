@@ -8,6 +8,12 @@ from werkzeug.utils import secure_filename
 from getData import GetData
 from login import login
 from postData import postData
+import bcrypt
+
+def encryptPass(passwd):
+    salt = b'$2b$12$cYyLxD1Fh7fksAjP2l5NYO'
+    hashed = bcrypt.hashpw(passwd.encode('utf-8'), salt)
+    return hashed.decode('utf-8')
 
 app = Flask(__name__)
 CORS(app)
@@ -17,8 +23,9 @@ CORS(app)
 #PROFIL_FOLDER = "/var/www/html/rr/userphoto"
 COVER_FOLDER = "../../c:xampp/htdocs/coba/Cover/"
 FILE_FOLDER = "../../c:xampp/htdocs/coba/FProfil/"
-PROFIL_FOLDER = "../../c:xampp/htdocs/coba/File/"
+PROFIL_FOLDER = "D:/"
 now = datetime.now().time()
+
 
 @app.route("/inputBuku", methods=['POST', 'GET'])
 def formBuku():
@@ -40,11 +47,13 @@ def formBuku():
 def formUser():
     if request.method == 'POST':
         userdata = request.form
+        password = userdata['password']
+        password = encryptPass(password)
         foto = request.files['fotoprofil']
         filename = secure_filename(str(now) + foto.filename)
         foto.save(os.path.join(PROFIL_FOLDER, filename))
         foto = "http://192.168.1.17/rr/userphoto/" + filename
-        postData().uploadUser(userdata, foto)
+        postData().uploadUser(userdata, password, foto)
 
     return render_template('formUser.html')
 
@@ -166,6 +175,7 @@ def isUserin():
     param = request.get_json()
     uname = param['username']
     password = param['pass']
+    password = encryptPass(password)
     respon = login().ceklogin(uname, password)
     if respon != None:
         sukses = "Login Successful"
