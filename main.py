@@ -12,7 +12,7 @@ from postData import postData
 app = Flask(__name__)
 CORS(app)
 
-#COVER_FOLDER = "/var/www/html/rr/bookcover/"
+#COVER_FOLDER = "/var/www/html/rr/bookcover/"#
 #FILE_FOLDER = "/var/www/html/rr/bookfile/"
 #PROFIL_FOLDER = "/var/www/html/rr/userphoto"
 COVER_FOLDER = "../../c:xampp/htdocs/coba/Cover/"
