@@ -12,9 +12,12 @@ from postData import postData
 app = Flask(__name__)
 CORS(app)
 
-COVER_FOLDER = "/var/www/html/rr/bookcover/"
-FILE_FOLDER = "/var/www/html/rr/bookfile/"
-PROFIL_FOLDER = "/var/www/html/rr/userphoto"
+#COVER_FOLDER = "/var/www/html/rr/bookcover/"
+#FILE_FOLDER = "/var/www/html/rr/bookfile/"
+#PROFIL_FOLDER = "/var/www/html/rr/userphoto"
+COVER_FOLDER = "../../c:xampp/htdocs/coba/Cover/"
+FILE_FOLDER = "../../c:xampp/htdocs/coba/FProfil/"
+PROFIL_FOLDER = "../../c:xampp/htdocs/coba/File/"
 now = datetime.now().time()
 
 @app.route("/inputBuku", methods=['POST', 'GET'])
@@ -158,8 +161,11 @@ def getWishlist(iduser):
     respon = {"data": respon}
     return respon
 
-@app.route('/login/<uname>/<password>')
-def isUserin(uname, password):
+@app.route('/login', methods=['POST'])
+def isUserin():
+    param = request.get_json()
+    uname = param['username']
+    password = param['pass']
     respon = login().ceklogin(uname, password)
     if respon != None:
         sukses = "Login Successful"
