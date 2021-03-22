@@ -88,7 +88,7 @@ class GetData:
         cursor.execute(
             "SELECT riwayat_pinjam.idriwayat_pinjam, riwayat_pinjam.tanggal_pinjam, "
             "riwayat_pinjam.tanggal_dikembalikan, riwayat_pinjam.progress_baca, buku.idbuku, "
-            "buku.judul_buku, buku.foto_buku, buku.pengarang "
+            "buku.judul_buku, buku.foto_buku, buku.pengarang, buku.jumlah_halaman "
             "FROM (riwayat_pinjam INNER JOIN buku ON riwayat_pinjam.buku_idbuku = buku.idbuku) "
             "WHERE user_iduser={}".format(iduser))
         result = cursor.fetchall()
