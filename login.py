@@ -17,6 +17,7 @@ class login:
     def ceklogin(self, username, password):
         mydb = connectdb()
         cursor = mydb.cursor(dictionary=True)
+        password = '$2b$12$cYyLxD1Fh7fksAjP2l5NYO' + password
         cursor.execute("SELECT * FROM user WHERE (username = '{uname}') AND (password = '{pwd}')".format(uname=username, pwd=password))
         result = cursor.fetchall()
         cursor.close()
