@@ -46,7 +46,7 @@ class postData:
         cur = mydb.cursor()
         cur.execute(
             "INSERT INTO user (iduser, username, password, nama_lengkap, foto_user, fakultas, jurusan, angkatan, status) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
-            (0, username, password, nama, foto, fakultas, jurusan, int(angkatan), status))
+            (0, username, password[29:], nama, foto, fakultas, jurusan, int(angkatan), status))
         mydb.commit()
         cur.close()
 
