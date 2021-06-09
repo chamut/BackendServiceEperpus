@@ -28,7 +28,7 @@ class GetData:
     def getdatabukupage(self, page):
         mydb = connectdb()
         cursor = mydb.cursor(dictionary=True)
-        limit = 2
+        limit = 4
         offset = (int(page)-1)*limit
         cursor.execute("SELECT * FROM buku LIMIT {} OFFSET {}".format(limit, offset))
         result = cursor.fetchall()
